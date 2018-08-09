@@ -1,0 +1,28 @@
+8.2 Assignment 2, due Thursday 2018-02-15, at 11:00pm
+For this assignment, you are to implement a simple transposition cipher.
+
+This cipher encrypts and decrypts a sequence of characters by dividing the sequence into blocks of size n, where n is specified by the encryption key. If the input text has a length that is not a multiple of n, the last block is padded with null characters ('\0').
+
+In addition to n, the key also specifies two parameters a and b. For each block, the i-th output character, starting from 0 as usual, is set to the j-th input character, where j = (ai + b) mod n. For appropriate choices of a and b, this will reorder the characters in the block in a way that can be reversed by choosing a corresponding decryption key (n, a′,b′).
+
+For example, if n = 5, a = 3, and b = 2, the string Hello, world! would be encrypted like this:
+
+in:   H  e  l  l  o  ,     w  o  r  l  d  !  \0 \0
+i:    0  1  2  3  4  0  1  2  3  4  0  1  2  3  4
+j:    2  0  3  1  4  2  0  3  1  4  2  0  3  1  4
+out:  l  H  l  e  o  w  ,  o     r  !  l  \0 d  \0
+8.2.1 Your task
+Write a program transpose.c that takes n, a, and b in argv[1], argv[2], and argv[3], respectively, and an input string from stdin; applies the above encryption; and writes the result to  stdout.
+
+You may assume that n, a, and b are all small enough to fit into variables of type int. Your program should exit with a nonzero exit code if n is not at least 1 or if it is not given exactly three arguments, but you do not need to do anything to test for badly-formatted arguments. You should not make any other assumptions about the values of n, a, or b; for example, either of a or b could be zero or negative.
+
+8.2.2 Submitting your assignment
+Submit your assignment as usual with /c/cs223/bin/submit 2 transpose.c. You can use  /c/cs223/bin/testit 2 public to run the public test script on your submitted assignment. You can also run this script in your own directory as /c/cs223/Hwk2/test.public. Sample inputs and outputs used by the test script can be found in /c/cs223/Hwk2/testFiles.
+
+Be aware that null characters in your output will not be visible on most terminals. Using od -c may be helpful here, since it will explicitly show nulls, spaces, and other non-printing characters. For example:
+
+$ echo -n 'Hello, world!' | ./transpose 5 3 2 | od -c
+0000000   l   H   l   e   o   w   ,   o       r   !   l  \0   d  \0
+0000017
+The program cmp may also be helpful for comparing binary files.
+
