@@ -1,0 +1,35 @@
+8.1.2 Pig Esperanto
+For this assignment, you are to implement an encoder for Pig Esperanto, a simplified version of the language game Pig Elvish, which in turn is similar to Pig Latin.
+
+Pig Esperanto works by translating a text one word at a time. For the purposes of this assignment, a word consists of a consecutive sequence of characters for which isalpha, defined in the include file  ctype.h, returns true. Any characters for which isalpha returns false should be passed through unmodified.
+
+For each input word:
+
+Move the first letter to the end.
+Add the letters "an" to the end of any word of three letters or less, and "o" to the end of any longer word.
+Make the new first letter of the word match the case of the old first letter of the word. Make the letter that was moved lowercase if it is not still the first letter. Do not change the capitalization of any other letters.
+Capitalization can be tested using the isupper and islower macros, and modified using the  toupper and tolower macros. Like isalpha, these are all defined in ctype.h.
+
+8.1.3 Your task
+You are to write a program encode.c that takes an input from stdin, encodes it using the above rules, and writes the result to stdout.
+
+For example, given the input
+
+I *REALLY* like Yale's course-selection procedures.
+Your program should output
+
+Ian *EALLYro* ikelo Aleyo'san ourseco-electionso rocedurespo.
+8.1.4 Testing your assignment
+Sample inputs and outputs can be found in the directory /c/cs223/Hwk1/testFiles in the Zoo. Note that some of these files contain non-printing characters that may have odd effects if you send them to your screen. The safest way to test if your program produces the same output as the sample output is probably to use cmp, for example:
+
+$ ./encode < test.in > tmp
+$ cmp tmp test.out
+If tmp and test.out contain the same characters, cmp will say nothing. Otherwise it will tell you the first position where they differ.
+
+If you do want to see the characters in a binary file, trying using od, as in
+
+$ echo hi > foo
+$ od -t x1 -t c foo
+0000000  68  69  0a
+          h   i  \n
+0000003
